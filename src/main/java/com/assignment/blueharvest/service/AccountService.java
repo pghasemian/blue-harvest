@@ -1,6 +1,7 @@
 package com.assignment.blueharvest.service;
 
 import com.assignment.blueharvest.dto.CustomerAccInfo;
+import com.assignment.blueharvest.exception.CustomerNotFoundException;
 import com.assignment.blueharvest.model.Account;
 import com.assignment.blueharvest.model.Customer;
 import com.assignment.blueharvest.model.Transaction;
@@ -21,7 +22,7 @@ public class AccountService {
 
     public Account createAccount(Long customerId, Double initialCredit) {
         Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
+                .orElseThrow(() -> new CustomerNotFoundException("Customer with ID " + customerId + " not found."));
 
         Account account = new Account();
         account.setCustomer(customer);
@@ -37,7 +38,7 @@ public class AccountService {
 
     public CustomerAccInfo getCustomerAccountInfo(Long customerId) {
         Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
+                .orElseThrow(() -> new CustomerNotFoundException("Customer with ID " + customerId + " not found."));
 
         List<Account> accounts = accountRepository.findByCustomer(customer);
         Double balance = accounts.stream().mapToDouble(Account::getBalance).sum();
