@@ -14,7 +14,7 @@ const CreateAccount = () => {
                 initialCredit: Number(initialCredit),
             });
             setAccountInfo(response.data); // Assuming the response includes the account data
-            setResponseMessage(`Account created successfully with ID: ${response.data.id}`);
+            setResponseMessage(`Account created successfully`);
         } catch (error) {
             setResponseMessage('Error creating account');
             console.error(error);
@@ -39,27 +39,7 @@ const CreateAccount = () => {
             <button onClick={handleCreateAccount}>Create Account</button>
             <p>{responseMessage}</p>
 
-            {accountInfo && (
-                <div className="table-container">
-                    <h3>Account Information</h3>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Account ID</th>
-                            <th>Customer ID</th>
-                            <th>Initial Credit</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>{accountInfo.id}</td>
-                            <td>{accountInfo.customerId}</td>
-                            <td>{accountInfo.balance}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            )}
+
         </div>
     );
 };
