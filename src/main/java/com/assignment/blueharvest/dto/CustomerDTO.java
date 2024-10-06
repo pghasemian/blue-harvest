@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerAccInfo {
+public class CustomerDTO {
     private String firstName;
     private String surName;
     private Double balance;

@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccountCreationRequest {
+public class AccountDTO {
     @NotNull(message = "Customer ID is required")
     private Long customerId;
 

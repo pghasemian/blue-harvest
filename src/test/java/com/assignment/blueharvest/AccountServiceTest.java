@@ -1,6 +1,6 @@
 package com.assignment.blueharvest;
 
-import com.assignment.blueharvest.dto.CustomerAccInfo;
+import com.assignment.blueharvest.dto.CustomerDTO;
 import com.assignment.blueharvest.exception.CustomerNotFoundException;
 import com.assignment.blueharvest.model.Account;
 import com.assignment.blueharvest.model.Customer;
@@ -62,7 +62,7 @@ public class AccountServiceTest {
         when(accountRepository.findByCustomer(customer)).thenReturn(List.of(account));
         when(transactionRepository.findByAccount_Customer(customer)).thenReturn(List.of());
 
-        CustomerAccInfo accInfo = accountService.getCustomerAccountInfo(1L);
+        CustomerDTO accInfo = accountService.getCustomerAccountInfo(1L);
 
         assertNotNull(accInfo);
         assertEquals("Parisa", accInfo.getFirstName());
