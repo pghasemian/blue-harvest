@@ -22,21 +22,21 @@ jobs:
           java-version: '21'
 
       - name: Build and Test Backend
-        working-directory: ./blueharvest # Ensure this is the correct path to your backend
+        working-directory: ./ # Ensure this is the correct path to your backend
         run: |
           ./mvnw clean install
           ./mvnw test
 
       - name: Build Backend
-        working-directory: blueharvest
+        working-directory: /
         run: mvn clean install
 
       - name: Run Unit Tests
-        working-directory: blueharvest
+        working-directory: /
         run: mvn test
 
       - name: Run Integration Tests
-        working-directory: blueharvest
+        working-directory: /
         run: mvn verify
 
   build-frontend:
