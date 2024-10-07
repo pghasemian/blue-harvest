@@ -1,5 +1,11 @@
 package com.assignment.blueharvest.response;
 
+import lombok.Getter;
+
+/**
+ * Response object for API responses.
+ */
+@Getter
 public class ApiResponse {
     private String message;
     private boolean success;
@@ -9,11 +15,4 @@ public class ApiResponse {
         this.success = success;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
 }

@@ -7,8 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Repository interface for managing accounts.
+ */
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
     List<Account> findByCustomer(Customer customer);
-
 }

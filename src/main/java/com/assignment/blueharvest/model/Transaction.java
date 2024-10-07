@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Entity representing a transaction associated with a bank account.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,4 +22,3 @@ public class Transaction {
     @JoinColumn(name = "account_id")
     private Account account;
 }
-

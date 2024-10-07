@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * Data Transfer Object for account creation requests.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

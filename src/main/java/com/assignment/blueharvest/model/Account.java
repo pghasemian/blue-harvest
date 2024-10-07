@@ -1,11 +1,13 @@
 package com.assignment.blueharvest.model;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Entity representing a bank account.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,5 +21,4 @@ public class Account {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
-
 }

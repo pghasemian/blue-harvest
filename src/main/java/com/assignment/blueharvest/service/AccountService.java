@@ -9,19 +9,30 @@ import com.assignment.blueharvest.repository.AccountRepository;
 import com.assignment.blueharvest.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * Service class for account-related operations.
+ */
 @Service
 @RequiredArgsConstructor
 public class AccountService {
-
     private final AccountRepository accountRepository;
     private final CustomerRepository customerRepository;
     private final TransactionService transactionService;
 
+    /**
+     * Creates a new account for the specified customer.
+     *
+     * @param customerId    the ID of the customer.
+     * @param initialCredit the initial credit for the new account.
+     * @return the created account.
+     */
+    @Transactional
     public Account createAccount(Long customerId, Double initialCredit) {
-        Customer newCustomer = new Customer(customerId, "name","surname");
+        Customer newCustomer = new Customer(customerId, "name", "surname");
         customerRepository.save(newCustomer);
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer with ID " + customerId + " not found."));
@@ -38,6 +49,12 @@ public class AccountService {
         return account;
     }
 
+    /**
+     * Retrieves account information for a specific customer.
+     *
+     * @param customerId the ID of the customer.
+     * @return DTO containing the customer's account information.
+     */
     public CustomerDTO getCustomerAccountInfo(Long customerId) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer with ID " + customerId + " not found."));
