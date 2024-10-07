@@ -21,16 +21,22 @@ jobs:
           distribution: 'temurin'  # Specify the distribution
           java-version: '21'
 
+      - name: Build and Test Backend
+        working-directory: ./src  # Ensure this is the correct path to your backend
+        run: |
+          ./mvnw clean install
+          ./mvnw test
+
       - name: Build Backend
-        working-directory: backend
+        working-directory: src
         run: mvn clean install
 
       - name: Run Unit Tests
-        working-directory: backend
+        working-directory: src
         run: mvn test
 
       - name: Run Integration Tests
-        working-directory: backend
+        working-directory: src
         run: mvn verify
 
   build-frontend:
@@ -60,8 +66,8 @@ jobs:
       - name: Copy Build Files to Static Folder
         working-directory: frontend
         run: |
-          mkdir -p ../backend/src/main/resources/static
-          cp -r build/* ../backend/src/main/resources/static/
+          mkdir -p ../src/main/resources/static
+          cp -r build/* ../src/main/resources/static/
 
   deploy:
     runs-on: ubuntu-latest
