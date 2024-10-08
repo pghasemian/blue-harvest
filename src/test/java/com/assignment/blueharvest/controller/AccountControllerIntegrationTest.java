@@ -83,7 +83,7 @@ public class AccountControllerIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(accountDTO)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.message").value("account created successfully "));
+                .andExpect(jsonPath("$.message").value("Account created successfully"));
     }
 
     /**
