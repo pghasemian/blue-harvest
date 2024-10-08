@@ -88,7 +88,7 @@ public class AccountServiceTest {
         Account account = new Account(1L, 85.0, customer);
         when(customerRepository.findById(1L)).thenReturn(Optional.of(customer));
         when(accountRepository.findByCustomer(customer)).thenReturn(List.of(account));
-        when(transactionRepository.findByAccount_Customer(customer)).thenReturn(List.of());
+        when(transactionRepository.findByAccountCustomer(customer)).thenReturn(List.of());
 
         CustomerDTO accInfo = accountService.getCustomerAccountInfo(1L);
 

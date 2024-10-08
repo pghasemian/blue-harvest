@@ -37,27 +37,12 @@ const CreateAccount = () => {
                 onChange={(e) => setInitialCredit(e.target.value)}
             />
             <button onClick={handleCreateAccount}>Create Account</button>
-            <p>{responseMessage}</p>
+
 
             {accountInfo && (
                 <div className="table-container">
-                    <h3>Account Information</h3>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Account ID</th>
-                            <th>Customer ID</th>
-                            <th>Initial Credit</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>{accountInfo.id}</td>
-                            <td>{accountInfo.customerId}</td>
-                            <td>{accountInfo.balance}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+
+                    <p>{responseMessage}</p>
                 </div>
             )}
         </div>

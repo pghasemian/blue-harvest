@@ -16,10 +16,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 public class Customer {
+
+    /**
+     * Unique identifier for the customer.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * The first name of the customer.
+     */
     private String firstName;
+
+    /**
+     * The surname of the customer.
+     */
     private String surName;
 }

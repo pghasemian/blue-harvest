@@ -8,7 +8,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class CustomerNotFoundException extends RuntimeException {
-    public CustomerNotFoundException(String message) {
+
+    /**
+     * Constructs a new CustomerNotFoundException with
+     * the specified detail message.
+     *
+     * @param message the detail message explaining
+     *                the reason for the exception.
+     */
+    public CustomerNotFoundException(final String message) {
         super(message);
     }
 }

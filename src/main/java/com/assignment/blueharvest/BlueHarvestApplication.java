@@ -8,13 +8,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * <p>
  * This class is responsible for bootstrapping the Spring Boot application.
  * The {@link SpringBootApplication} annotation enables auto-configuration,
- * component scanning, and allows the application to be run as a standalone application.
+ * component scanning, and allows the application to be run
+ * as a standalone application.
  */
+
 @SpringBootApplication
 public class BlueHarvestApplication {
 
     /**
-     * The main method that serves as the entry point for the Spring Boot application.
+     * The main method that serves as the entry point
+     * for the Spring Boot application.
      *
      * @param args command-line arguments passed to the application.
      */
