@@ -19,8 +19,16 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
+/**
+ * Test class for {@link AccountService}.
+ * <p>
+ * This class contains unit tests for the methods in the {@link AccountService},
+ * including creating accounts and retrieving customer account information. The tests use
+ * Mockito to mock the repository dependencies and verify service behavior.
+ */
 @SpringBootTest
 public class AccountServiceTest {
+
     @MockBean
     private AccountRepository accountRepository;
 
@@ -33,6 +41,13 @@ public class AccountServiceTest {
     @Autowired
     private AccountService accountService;
 
+    /**
+     * Test method to verify account creation for an existing customer.
+     * <p>
+     * This test mocks the {@link CustomerRepository} to return a valid customer and checks
+     * if the account created has the correct balance. The test verifies that the account is
+     * not null and that the balance is set correctly.
+     */
     @Test
     public void testCreateAccount() {
         Customer customer = new Customer(1L, "Parisa", "Ghasemian");
@@ -43,24 +58,37 @@ public class AccountServiceTest {
         assertNotNull(account);
     }
 
+    /**
+     * Test method to handle the scenario when account creation is attempted for a customer
+     * that does not exist.
+     * <p>
+     * This test ensures that a {@link CustomerNotFoundException} is thrown when trying to create
+     * an account for a non-existent customer, and verifies the exception message.
+     */
     @Test
     public void testCreateAcc_CustomerNotFound() {
         when(customerRepository.findById(1L)).thenReturn(Optional.empty());
 
-        Exception exception = assertThrows(CustomerNotFoundException.class, () -> {
-            accountService.createAccount(1L, 85.0);
-        });
+        Exception exception = assertThrows(CustomerNotFoundException.class, () ->
+                accountService.createAccount(1L, 85.0));
 
         assertEquals("Customer with ID 1 not found.", exception.getMessage());
     }
 
+    /**
+     * Test method to verify the retrieval of customer account information.
+     * <p>
+     * This test mocks the necessary repositories to return a valid customer and their accounts.
+     * It verifies that the returned {@link CustomerDTO} contains the correct customer details
+     * and balance and checks that the transactions list is empty.
+     */
     @Test
     public void testGetCustomerAccInfo() {
         Customer customer = new Customer(1L, "Parisa", "Ghasemian");
         Account account = new Account(1L, 85.0, customer);
         when(customerRepository.findById(1L)).thenReturn(Optional.of(customer));
         when(accountRepository.findByCustomer(customer)).thenReturn(List.of(account));
-        when(transactionRepository.findByAccount_Customer(customer)).thenReturn(List.of());
+        when(transactionRepository.findByAccountCustomer(customer)).thenReturn(List.of());
 
         CustomerDTO accInfo = accountService.getCustomerAccountInfo(1L);
 
@@ -71,13 +99,19 @@ public class AccountServiceTest {
         assertTrue(accInfo.getTransactions().isEmpty());
     }
 
+    /**
+     * Test method to handle the scenario when account information retrieval is attempted
+     * for a customer that does not exist.
+     * <p>
+     * This test ensures that a {@link CustomerNotFoundException} is thrown when trying to retrieve
+     * account information for a non-existent customer, and verifies the exception message.
+     */
     @Test
     public void testGetCustomerAccInfo_CustomerNotFound() {
         when(customerRepository.findById(1L)).thenReturn(Optional.empty());
 
-        Exception exception = assertThrows(CustomerNotFoundException.class, () -> {
-            accountService.getCustomerAccountInfo(1L);
-        });
+        Exception exception = assertThrows(CustomerNotFoundException.class, () ->
+                accountService.getCustomerAccountInfo(1L));
 
         assertEquals("Customer with ID 1 not found.", exception.getMessage());
     }
