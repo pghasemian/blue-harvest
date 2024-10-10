@@ -5,6 +5,9 @@ import com.assignment.blueharvest.dto.CustomerDTO;
 import com.assignment.blueharvest.model.Account;
 import com.assignment.blueharvest.response.AccountResponse;
 import com.assignment.blueharvest.service.AccountService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,6 +39,11 @@ public class AccountController {
      *                customer ID and initial credit.
      * @return a response entity containing the status of the account creation.
      */
+    @Operation(summary = "Create a new account")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Account created successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid input")})
     @PostMapping("/create")
     public ResponseEntity<AccountResponse> createAccount(
             @Valid @RequestBody final AccountDTO request) {
@@ -58,6 +66,12 @@ public class AccountController {
      * @param customerId the ID of the customer.
      * @return a response entity containing the customer's account information.
      */
+    @Operation(summary = "Get account info")
+    @ApiResponses(value = {
+            @ApiResponse (responseCode = "201",
+                    description = "successfully retrieved account information"),
+            @ApiResponse (responseCode = "404",
+                    description = "Customer not found")})
     @GetMapping("/info/{customerId}")
     public ResponseEntity<CustomerDTO> getAccountInfo(
             @PathVariable final Long customerId) {

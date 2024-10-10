@@ -44,10 +44,6 @@ public class AccountService {
     @Transactional
     public Account createAccount(final Long customerId,
                                  final Double initialCredit) {
-        // Creating a new Customer instance for the provided customerId.
-        Customer newCustomer = new Customer(customerId, "name", "surname");
-        customerRepository.save(newCustomer);
-
         // Retrieving the customer from the database using the provided ID.
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new CustomerNotFoundException(

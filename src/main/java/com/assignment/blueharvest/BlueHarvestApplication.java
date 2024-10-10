@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * The entry point of the Blue Harvest application.
  * <p>
  * This class is responsible for bootstrapping the Spring Boot application.
- * The {@link SpringBootApplication} annotation enables auto-configuration,
+ * The {@link SpringBootApplication} annotation enables autoconfiguration,
  * component scanning, and allows the application to be run
  * as a standalone application.
  */
