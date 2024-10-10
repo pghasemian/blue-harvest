@@ -5,8 +5,7 @@ const CreateAccount = () => {
     const [customerId, setCustomerId] = useState('');
     const [initialCredit, setInitialCredit] = useState('');
     const [responseMessage, setResponseMessage] = useState('');
-    const [setAccountInfo] = useState(null); // To store the result
-    const accountInfo = {};
+    const [accountInfo, setAccountInfo] = useState(null); // To store the result
 
     const handleCreateAccount = async () => {
         try {

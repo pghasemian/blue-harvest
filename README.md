@@ -27,8 +27,8 @@ The project follows best practices in API design, service separation, and CI/CD 
 - Maven
 - Lombok
 - CheckStyle for cleanCode
-- SpringDoc Swagger-ui
-- Actuator
+- SpringDoc Swagger-ui (http://localhost:8080/swagger-ui/index.html#/)
+- Actuator (http://localhost:8080/actuator)
 
 ### Frontend:
 - React.js
@@ -68,10 +68,6 @@ The project follows best practices in API design, service separation, and CI/CD 
 
    The backend will start at `http://localhost:8080`.
 
-4. **Run tests (optional):**
-   ```bash
-   ./mvnw test
-   ```
 
 ### Frontend Setup
 
