@@ -1,8 +1,10 @@
 package com.assignment.blueharvest;
 
+import com.assignment.blueharvest.dto.CustomCustomerDTO;
 import com.assignment.blueharvest.model.Customer;
 import com.assignment.blueharvest.service.CustomerService;
 import com.assignment.blueharvest.controller.CustomerController;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -39,10 +41,15 @@ class CustomerControllerTest {
 
         when(customerService.saveCustomer(anyString(), anyString())).thenReturn(newCustomer);
 
+        // Create the ObjectMapper instance to convert the DTO to JSON
+        ObjectMapper objectMapper = new ObjectMapper();
+        CustomCustomerDTO requestDTO = new CustomCustomerDTO(firstName, surName);
+        String jsonRequest = objectMapper.writeValueAsString(requestDTO);
+
         // When & Then
         mockMvc.perform(post("/api/customers/create")
-                        .param("firstName", firstName)
-                        .param("surName", surName))
+                        .contentType("application/json")  // Set content type to JSON
+                        .content(jsonRequest))              // Set the JSON body
                 .andExpect(status().isCreated());
 
         ArgumentCaptor<String> firstNameCaptor = ArgumentCaptor.forClass(String.class);
