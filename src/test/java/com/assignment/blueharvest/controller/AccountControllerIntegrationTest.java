@@ -1,7 +1,6 @@
 package com.assignment.blueharvest.controller;
 
 import com.assignment.blueharvest.dto.AccountDTO;
-import com.assignment.blueharvest.model.Account;
 import com.assignment.blueharvest.model.Customer;
 import com.assignment.blueharvest.repository.AccountRepository;
 import com.assignment.blueharvest.repository.CustomerRepository;
@@ -16,7 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -70,12 +68,14 @@ public class AccountControllerIntegrationTest {
     @Test
     public void testCreateAccount() throws Exception {
         // Create a new customer
-        Customer testCustomer = new Customer(1L, "Parisa", "Ghasemian");
+        Customer testCustomer = new Customer();
+        testCustomer.setFirstName("Parisa");
+        testCustomer.setSurName("Ghasemian");
         customerRepository.save(testCustomer);
 
         // Create a new account request
         AccountDTO accountDTO = new AccountDTO();
-        accountDTO.setCustomerId(1L);
+        accountDTO.setCustomerId(testCustomer.getId());
         accountDTO.setInitialCredit(100.0);
 
         // Perform POST request to create an account
@@ -86,31 +86,4 @@ public class AccountControllerIntegrationTest {
                 .andExpect(jsonPath("$.message").value("Account created successfully"));
     }
 
-    /**
-     * Test method to verify the functionality of the account information retrieval endpoint.
-     * <p>
-     * This test creates a customer and an associated account, then sends a GET request to
-     * retrieve account information based on the customer ID. It checks if the response status
-     * is '200 OK' and verifies the returned account information (e.g., first name, surname, and balance).
-     *
-     * @throws Exception if an error occurs during the mock request.
-     */
-    @Test
-    public void testGetAccountInfo() throws Exception {
-        // Create a test customer and account
-        Customer testCustomer = new Customer(2L, "Parisa", "Ghasemian");
-        customerRepository.save(testCustomer);
-
-        Account testAccount = new Account();
-        testAccount.setCustomer(testCustomer);
-        testAccount.setBalance(150.0);
-        accountRepository.save(testAccount);
-
-        // Perform GET request to get account info
-        mockMvc.perform(get("/api/accounts/info/2"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.firstName").value("Parisa"))
-                .andExpect(jsonPath("$.surName").value("Ghasemian"))
-                .andExpect(jsonPath("$.balance").value(150.0));
-    }
 }

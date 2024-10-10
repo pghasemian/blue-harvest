@@ -1,6 +1,5 @@
 package com.assignment.blueharvest.controller;
 
-
 import com.assignment.blueharvest.model.Customer;
 import com.assignment.blueharvest.response.CustomerResponse;
 import com.assignment.blueharvest.service.CustomerService;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
- * Controller for managing account-related operations.
+ * Controller for managing customer-related operations.
  */
 @RestController
 @RequiredArgsConstructor
@@ -25,12 +24,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class CustomerController {
 
     /**
-     * Service for managing account operations.
+     * Service for managing customer operations.
      */
     private final CustomerService customerService;
 
     /**
-     * Creates a new customer .
+     * Creates a new customer.
      *
      * @param firstName the first name of the customer.
      * @param surName   the surname of the customer.
@@ -45,11 +44,13 @@ public class CustomerController {
     public ResponseEntity<CustomerResponse> createCustomer(
             @Valid @RequestParam final String firstName,
             @RequestParam final String surName) {
+
         Customer customer = customerService.saveCustomer(firstName, surName);
+
         if (customer == null) {
             CustomerResponse response = new CustomerResponse("failed",
                     "Error creating customer", null);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
         CustomerResponse response = new CustomerResponse("success",
