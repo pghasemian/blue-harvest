@@ -1,5 +1,6 @@
 package com.assignment.blueharvest.controller;
 
+import com.assignment.blueharvest.dto.CustomCustomerDTO;
 import com.assignment.blueharvest.model.Customer;
 import com.assignment.blueharvest.response.CustomerResponse;
 import com.assignment.blueharvest.service.CustomerService;
@@ -10,10 +11,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controller for managing customer-related operations.
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/customers")
-public class CustomerController {
+public final class CustomerController {
 
     /**
      * Service for managing customer operations.
@@ -31,30 +32,28 @@ public class CustomerController {
     /**
      * Creates a new customer.
      *
-     * @param firstName the first name of the customer.
-     * @param surName   the surname of the customer.
-     * @return a response entity containing the status of the customer creation.
+     * @param request the customer details from the request body
+     * @return a ResponseEntity containing the customer creation response
      */
     @Operation(summary = "Create a new customer")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
                     description = "Customer created successfully"),
-            @ApiResponse(responseCode = "400", description = "Invalid input")})
+            @ApiResponse(responseCode = "400", description = "Invalid input")
+    })
     @PostMapping("/create")
     public ResponseEntity<CustomerResponse> createCustomer(
-            @Valid @RequestParam final String firstName,
-            @RequestParam final String surName) {
-
-        Customer customer = customerService.saveCustomer(firstName, surName);
-
+            @Valid @RequestBody final CustomCustomerDTO request) {
+        Customer customer = customerService.saveCustomer(
+                request.firstName(), request.surName());
         if (customer == null) {
-            CustomerResponse response = new CustomerResponse("failed",
-                    "Error creating customer", null);
+            CustomerResponse response = new CustomerResponse(
+                    "failed", "Error creating customer", null);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
-        CustomerResponse response = new CustomerResponse("success",
-                "Account created successfully", customer);
+        CustomerResponse response = new CustomerResponse(
+                "success", "Customer created successfully", customer);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 
 const CreateAccount = () => {
     const [customerId, setCustomerId] = useState('');
     const [initialCredit, setInitialCredit] = useState('');
     const [responseMessage, setResponseMessage] = useState('');
-    const [accountInfo, setAccountInfo] = useState(null); // To store the result
+    const [setAccountInfo] = useState(null); // To store the result
+    const accountInfo = {};
 
     const handleCreateAccount = async () => {
         try {

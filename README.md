@@ -10,8 +10,9 @@ The project follows best practices in API design, service separation, and CI/CD 
 
 ## Features
 
-- **Customer Account Management**: Open new bank accounts for existing customers.
-- **Transaction Management**: Manage and view transactions for accounts.
+- **Customer Management**: Create new Customer .
+- **Customer Account Management**: Open new bank accounts for the customers.
+- **Transaction Management**: view transactions for accounts.
 - **React Frontend**: A clean and user-friendly interface for managing customer accounts.
 - **CI/CD Pipeline**: Automated testing, building, and deployment using GitHub Actions.
 
@@ -25,6 +26,9 @@ The project follows best practices in API design, service separation, and CI/CD 
 - Spring Data JPA
 - Maven
 - Lombok
+- CheckStyle for cleanCode
+- SpringDoc Swagger-ui
+- Actuator
 
 ### Frontend:
 - React.js
@@ -83,12 +87,11 @@ The project follows best practices in API design, service separation, and CI/CD 
 
 3. **Start the React development server:**
    ```bash
+   npm run buid 
    npm start
    ```
 
    The frontend will start at `http://localhost:3000`.
-
-
 ---
 
 ## Usage
@@ -98,9 +101,9 @@ The project follows best practices in API design, service separation, and CI/CD 
 
 ### API Endpoints:
 
-- **Open New Account**: `POST /api/accounts`
+- **Create New Customer**: `POST /api/customers/create`
+- **Open New Account**: `POST /api/accounts/create`
 - **Get Customer Details**: `GET /api/customers/{id}`
-- **Make a Transaction**: `POST /api/accounts/{id}/transactions`
 
 ---
 
@@ -113,11 +116,6 @@ The project follows best practices in API design, service separation, and CI/CD 
    ./mvnw test
    ```
 
-- To run the frontend tests:
-   ```bash
-   npm test
-   ```
-
 ---
 
 ## CI/CD Pipeline
@@ -128,47 +126,16 @@ This project uses GitHub Actions for CI/CD, with the following pipeline:
 2. **Steps**:
    - Build and test the backend using Maven.
    - Build and test the frontend using npm.
-   - Deploy the application (on the main branch) to a local or cloud environment.
 
 ### GitHub Actions Configuration
 
 The GitHub Actions workflow (`.github/workflows/ci-cd.yml`) includes:
 - Building the backend and running tests.
 - Building the frontend and running tests.
-- Deployment to a local server.
+- Deployment to a local server.(todo)
 
 ---
 
-## Deployment
-
-### Local Deployment:
-
-1. Run the CI/CD script to build and deploy locally:
-   ```bash
-   ./ci-cd.sh
-   ```
-
-### Remote Deployment (Optional):
-
-- For cloud deployment, you can integrate services like **Netlify** or **Vercel** for the frontend, and **Heroku** or **AWS** for the backend.
-
----
-
-## Contribution Guidelines
-
-1. Fork the repository.
-2. Create a feature branch (`git checkout -b feature/my-new-feature`).
-3. Commit your changes (`git commit -am 'Add some feature'`).
-4. Push to the branch (`git push origin feature/my-new-feature`).
-5. Create a new Pull Request.
-
----
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
 
 ## Contact
 
